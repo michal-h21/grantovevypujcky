@@ -1,0 +1,24 @@
+\ProvidesPackage{grantovevypujcky}
+\RequirePackage[czech]{babel}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{microtype}
+
+\newcommand\deffield[1]{
+  \expandafter\def\csname #1\endcsname##1{\expandafter\def\csname field:#1\endcsname{##1}}%
+}
+\newenvironment{record}{\par
+}{\csname field:nazevautor\endcsname}
+\deffield{ctenar}
+\deffield{dilciknihovna}
+\deffield{pujceno}
+\deffield{nazevautor}
+\deffield{signatura}
+\deffield{pujcenodo}
+\deffield{ck}
+\deffield{idctenare}
+\deffield{id}
+\deffield{autor}
+\newcommand\hlavicka{}
+
+\endinput
