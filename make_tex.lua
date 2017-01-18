@@ -58,7 +58,7 @@ end
 local function make_filename(id, author)
   print(id, author)
   local aut_id = lower(author:gsub("[%s%,]+", "_"))
-  return aut_id .. "_".. id
+  return aut_id .. "_".. id .. ".tex"
 end
 
 local function escape(s)
@@ -74,23 +74,51 @@ local function escape(s)
 end
 
 
-local function make_tex(author, id, records)
+local function make_tex(template,author, id, records)
+  local r = {}
+  -- projít všechny záznamy a vytvořit pro každej texový prostředí
+  for _, x in ipairs(records) do
+    local curr = {}
+    -- projít jednotlivý políčka záznamu a vytvořit příkaz \nazevpolicka{obsah}
+    for k,v in pairs(x) do
+      -- jmeno prikazu nesmi obsahovat podtrzitko
+      local command = k:gsub("_", "")
+      curr[#curr+1] = string.format('\\%s{%s}', command, escape(v))
+    end
+    -- vlozit prostredi do pole k tisku
+    r[#r+1] = string.format("\\begin{record}\n%s\n\\end{record}\n", table.concat(curr, "\n"))
+  end
+  local fields = {author = author , id = id, records = table.concat(r, "\n")}
+  return template:gsub("%$(%w+)", fields)
 end
   
 
 
-local function make_files(authors) 
+local function make_files(authors, template) 
   for id, rec in pairs(authors) do
     local first = rec[1] or {}
     local id = first.id_ctenare
     local author = first.ctenar
     if author then
-      local filename = make_filename(id, author)
-      -- print(filename, #rec)
+      local filename = make_filename(id, author) 
+      local tex = make_tex(template,author, id, rec)
+      local f = io.open(output .. "/" .. filename,"w")
+      f:write(tex)
+      f:close()
     end
   end
 end
 
+local template = [[
+\documentclass{article}
+\usepackage{grantovevypujcky}
+\begin{document}
+\autor{$author}
+\id{$id}
+\hlavicka
+$records
+\end{document}
+]]
 if not input then
   print "Chybí vstupní soubor"
   help()
@@ -106,5 +134,5 @@ if not records then
   os.exit()
 end
 local authors = make_authors(records)
-make_files(authors)
+make_files(authors, template)
 
