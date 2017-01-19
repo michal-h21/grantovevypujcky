@@ -55,9 +55,21 @@
     \bigskip
   }
   \renewenvironment{record}{\par}{\textbf{Titul:} \usefield{nazevautor}\par%
-    \textbf{Signatura:} \usefield{signatura}\hskip4cm\textbf{Přírůstkové číslo:} \usefield{ck}\par%
-    \textbf{Vrátit do:} \usefield{pujcenodo}\par%
+    \noindent\begin{tabular}{@{}p{15em}l}
+      \textbf{Signatura:} \usefield{signatura}&\textbf{Přírůstkové číslo:} \usefield{ck}\\
+      \textbf{Půjčeno:} \usefield{pujceno}&\textbf{Vrátit do:} \usefield{pujcenodo}\\
+    \end{tabular}
     \medskip%
+  }
+  \AtEndDocument{%
+    \vfill%
+    \vtop{%
+      Patička dokumentu.\par%
+      \vskip 6\baselineskip%
+      \hrule width 10em\par%
+      \bigskip%
+      \strut Podpis\par%
+    }
   }
 }
 \ProcessOptions\relax
