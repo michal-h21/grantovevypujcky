@@ -3,12 +3,30 @@
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{microtype}
+\RequirePackage{tgschola}
+\RequirePackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}
+\RequirePackage[code=Code39,H=8mm]{makebarcode}
 
-\newcommand\deffield[1]{
+\newcommand\deffield[1]{%
   \expandafter\def\csname #1\endcsname##1{\expandafter\def\csname field:#1\endcsname{##1}}%
 }
-\newenvironment{record}{\par
-}{\csname field:nazevautor\endcsname}
+
+\newcommand\usefield[1]{%
+  \csname field:#1\endcsname%
+}
+
+\newcounter{reccount}
+\newenvironment{record}{%\noindent\par
+  \stepcounter{reccount}%
+  \begin{minipage}{ \textwidth }%
+  % \hbox to .3\textwidth\bgroup\vtop to 3cm\bgroup
+  % }{\usefield{nazevautor}\\\usefield{signatura}\\\barcode{\usefield{ck}}%
+    }{\hbox{\textbf{\arabic{reccount}}}\hbox{\usefield{signatura}}\hbox{\barcode{\usefield{ck}}}\hbox{\usefield{ck}}\vskip0.4cm\null%
+\end{minipage}\hskip3cm\allowbreak%
+  % \egroup\egroup
+  %\bigskip%
+}
+
 \deffield{ctenar}
 \deffield{dilciknihovna}
 \deffield{pujceno}
@@ -19,6 +37,30 @@
 \deffield{idctenare}
 \deffield{id}
 \deffield{autor}
-\newcommand\hlavicka{}
+\newcommand\hlavicka{%
+  \textbf{Čtenář:} \usefield{autor}\\%
+  \barcode{\usefield{id}}%
+  \par%
+  \vskip2cm%
+  \endlinechar=32
+}
 
+\DeclareOption{seznam}{%
+  \renewcommand\hlavicka{%
+    \bgroup\bfseries\large%
+    Seznam grantových výpůjček%
+    \egroup\par%
+    \textbf{Čtenář:} \usefield{autor}\par%
+    Nějaký text%
+    \bigskip
+  }
+  \renewenvironment{record}{\par}{\textbf{Titul:} \usefield{nazevautor}\par%
+    \textbf{Signatura:} \usefield{signatura}\hskip4cm\textbf{Přírůstkové číslo:} \usefield{ck}\par%
+    \textbf{Vrátit do:} \usefield{pujcenodo}\par%
+    \medskip%
+  }
+}
+\ProcessOptions\relax
+
+\parindent=0pt
 \endinput

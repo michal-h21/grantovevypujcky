@@ -1,0 +1,4 @@
+Seznam grantových vůpůjček se dá vytvořit skriptem `seznamgrantu` v adresáři
+`prirustkovy_seznam`. Z alephu je třeba vygenerovat seznam aktuálně vypůjčené
+literatury a filtrovat grantové výpůjčky, zaměstnance a doktorandy.
+

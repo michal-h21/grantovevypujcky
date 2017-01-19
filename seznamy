@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+b=${1##*/}
+jobname=seznam-${b%.tex}
+echo $jobname
+pdflatex -jobname=$jobname "\PassOptionsToPackage{seznam}{grantovevypujcky}\input $1"
