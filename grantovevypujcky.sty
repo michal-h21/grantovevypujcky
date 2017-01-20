@@ -45,18 +45,31 @@
   \endlinechar=32
 }
 
+\newcommand\podpis[1]{%
+      % \hrule width 10em\par%
+      % \bigskip%
+      \vbox{#1:}\hskip4cm\null%\par%
+}
 \DeclareOption{seznam}{%
   \renewcommand\hlavicka{%
-    \bgroup\bfseries\large%
-    Seznam grantových výpůjček%
+    \bgroup\bfseries\huge%
+    Výpůjčky čtenářského konta%
     \egroup\par%
-    \textbf{Čtenář:} \usefield{autor}\par%
-    Nějaký text%
+    \medskip
+    \textbf{Čtenář:} \usefield{autor}\hskip3cm \textbf{ID čtenáře:} \usefield{id}\par%
+    \bigskip
+    Výpůjčky grantové literatury vráceny dle seznamu čárových kódů dne:\par
+    \medskip
+    Datum vrácení:\par%
+    \medskip
+    Maximální délka výpůjčky: 36 měsíců.\par
+    Upozornění na končící lhůtu výpůjčky: 14 dní a 3 dny před uplynutím výpůjční doby.\par
+    V případě problémů  s prodloužením kontaktuje knihovnu.\par
     \bigskip
   }
   \renewenvironment{record}{\par}{\textbf{Titul:} \usefield{nazevautor}\par%
     \noindent\begin{tabular}{@{}p{15em}l}
-      \textbf{Signatura:} \usefield{signatura}&\textbf{Přírůstkové číslo:} \usefield{ck}\\
+      \textbf{Signatura:} \usefield{signatura}&\textbf{Čárový kód:} \usefield{ck}\\
       \textbf{Půjčeno:} \usefield{pujceno}&\textbf{Vrátit do:} \usefield{pujcenodo}\\
     \end{tabular}
     \medskip%
@@ -64,11 +77,13 @@
   \AtEndDocument{%
     \vfill%
     \vtop{%
-      Patička dokumentu.\par%
-      \vskip 6\baselineskip%
-      \hrule width 10em\par%
-      \bigskip%
-      \strut Podpis\par%
+      Souhlasím s výpůjčkami.\par%
+      \vskip 3\baselineskip%
+      \begin{tabular}{@{}p{.5\textwidth}r}
+        \podpis{Podpis čtenáře}&\podpis{Za knihovnu}\\
+      \end{tabular}
+      \bigskip
+      \podpis{Datum podpisu}
     }
   }
 }
