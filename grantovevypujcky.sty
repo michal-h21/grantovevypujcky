@@ -53,12 +53,13 @@
 \DeclareOption{seznam}{%
   \renewcommand\hlavicka{%
     \bgroup\bfseries\huge%
-    Výpůjčky čtenářského konta%
+    \raggedright
+    Výpůjčky se statusem jednotky grantová/\\specifická%
     \egroup\par%
     \medskip
     \textbf{Čtenář:} \usefield{autor}\hskip3cm \textbf{ID čtenáře:} \usefield{id}\par%
     \bigskip
-    Výpůjčky grantové literatury vráceny dle seznamu čárových kódů dne:\par
+    Výpůjčky byly vráceny a znovu vypůjčeny dle seznamu čárových kódů.\par
     \medskip
     Datum vrácení:\par%
     \medskip
@@ -77,13 +78,18 @@
   \AtEndDocument{%
     \vfill%
     \vtop{%
-      Souhlasím s výpůjčkami.\par%
+      Vzhledem k tomu, že neproběhla fyzická revize vypůjčených jednotek, podpisem stvrzuji
+      správnost titulů a~počtu jednotek a~přebírám za ně hmotnou zodpovědnost. Podepsaný seznam vracím 
+      do Ústřední knihovny PedF~UK.
+      \par%
       \vskip 3\baselineskip%
       \begin{tabular}{@{}p{.5\textwidth}r}
-        \podpis{Podpis čtenáře}&\podpis{Za knihovnu}\\
+        \podpis{Podpis čtenáře}&\podpis{Za knihovnu}\\[1cm]
+        \podpis{Datum} & 
+        \podpis{Datum}\\ 
       \end{tabular}
       \bigskip
-      \podpis{Datum podpisu}
+      % \podpis{Datum podpisu}
     }
   }
 }
