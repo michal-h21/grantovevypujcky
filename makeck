@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+pdflatex $1
+lp -d hp-LaserJet-1320-series `basename ${1%.tex}.pdf`
