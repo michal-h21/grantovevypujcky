@@ -1,12 +1,20 @@
 - Seznam grantových vůpůjček se dá vytvořit skriptem `seznamgrantu` v adresáři
   `prirustkovy_seznam`. Z alephu je třeba vygenerovat seznam aktuálně vypůjčené
   literatury a filtrovat grantové výpůjčky, zaměstnance a doktorandy.
+
+- zkonvertovat výsledný tsv soubor do xlsx a umístit do sdíleného, adresář `Grantové výpůjčky`.
+
 - TeXové soubory vytvoříme pomocí
 
     texlua make_tex.lua soubor.tsv cilovy_adresar
 
-- zkompilovat vygenerovaný texový soubor
+- čárové kódy vytiskneme pomocí
+
+    ./makeck  cilovy_adresar/jmeno_cloveka_id.tex
+
+- seznamy k podpisu 
 
     ./seznamy cilovy_adresar/jmeno_cloveka_id.tex
+
 
 
