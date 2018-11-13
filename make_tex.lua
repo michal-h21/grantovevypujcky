@@ -57,7 +57,7 @@ end
 
 local function make_filename(id, author)
   print(id, author)
-  local aut_id = lower(author:gsub("[%s%,]+", "_"))
+  local aut_id = lower(author:gsub("[%s%,%/]+", "_"))
   return aut_id .. "_".. id .. ".tex"
 end
 
