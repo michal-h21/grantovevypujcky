@@ -1,0 +1,46 @@
+#!/usr/bin/env texlua
+
+local barcodes = {}
+
+-- try to load barcodes from the clipboard
+local clipboard = io.popen("xclip -o -sel clipboard", "r")
+
+if not clipboard then
+  print("Cannot find data in the clipboard. Copy barcodes from excel to clipbaord to use this commadn")
+  os.exit()
+end
+
+for line in clipboard:lines() do
+  barcode = line:match("([0-9]+)")
+  barcodes[#barcodes+1] = barcode
+end
+
+clipboard:close()
+
+-- exit if we cannot find any barcodes
+if #barcodes == 0 then
+  print("Haven't found any barcodes in the clipboard")
+  os.exit()
+end
+
+local template = [[
+\documentclass{article}
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Heros}
+\RequirePackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}
+\RequirePackage[code=Code39,H=8mm]{makebarcode}
+\newcommand\ck[1]{%
+\vbox{\barcode{#1}\\%
+#1}
+}
+\begin{document}
+%barcodes%
+\end{document}
+]]
+
+-- join bacrode table to LaTeX string
+local str = "\\ck{" .. table.concat(barcodes, "}\n\\ck{") .. "}\n"
+
+-- expand template
+local latex_str = template:gsub("%%barcodes%%", str)
+print(latex_str)
