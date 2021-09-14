@@ -29,11 +29,16 @@ local template = [[
 \setmainfont{TeX Gyre Heros}
 \RequirePackage[left=2cm,right=2cm,top=2cm,bottom=3cm]{geometry}
 \RequirePackage[code=Code39,H=8mm]{makebarcode}
+\newcount\ckcount
 \newcommand\ck[1]{%
-\vbox{\barcode{#1}\\%
-#1}
+\begin{minipage}{0.33\textwidth}%
+\noindent\barcode{#1}\\%
+\global\advance\ckcount by 1\relax%
+\strut\the\ckcount~~ #1
+\end{minipage}\allowbreak
 }
 \begin{document}
+\parindent=0pt
 %barcodes%
 \end{document}
 ]]
@@ -43,4 +48,9 @@ local str = "\\ck{" .. table.concat(barcodes, "}\n\\ck{") .. "}\n"
 
 -- expand template
 local latex_str = template:gsub("%%barcodes%%", str)
-print(latex_str)
+
+local latexcmd = io.popen("lualatex -jobname  almapokus", "w")
+latexcmd:write(latex_str)
+latexcmd:close()
+
+os.execute("xdg-open almapokus.pdf")
