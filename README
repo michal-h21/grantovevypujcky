@@ -1,4 +1,13 @@
-- Seznam grantových vůpůjček se dá vytvořit skriptem `seznamgrantu` v adresáři
+# Info pro Almu
+
+Ze záznamu čtenáře vyexportujeme .xls soubor se všemi údaji a zkopírujeme sloupec s přírustkovými
+čísly do schránky. Pak spustíme příkaz:
+
+    grantyalma 
+
+# Staré info pro Aleph
+
+- Seznam grantových výpůjček se dá vytvořit skriptem `seznamgrantu` v adresáři
   `prirustkovy_seznam`. Z alephu je třeba vygenerovat seznam aktuálně vypůjčené
   literatury a filtrovat grantové výpůjčky, zaměstnance a doktorandy.
 
