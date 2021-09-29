@@ -3,4 +3,4 @@ b=${1##*/}
 jobname=seznam-${b%.tex}
 echo $jobname
 pdflatex -jobname=$jobname "\PassOptionsToPackage{seznam}{grantovevypujcky}\input \detokenize{$1}"
-lp -d hp-LaserJet-1320-series $jobname.pdf
+lp -d MC573 $jobname.pdf
