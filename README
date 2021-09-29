@@ -1,9 +1,30 @@
-# Info pro Almu
+# Vygenerovat jen seznam čárových kódů ze schránky
 
 Ze záznamu čtenáře vyexportujeme .xls soubor se všemi údaji a zkopírujeme sloupec s přírustkovými
 čísly do schránky. Pak spustíme příkaz:
 
     grantyalma 
+
+# Vygenerování TeXových souborů
+
+- v Almě dokážeme vytvořit seznam výpůjček jen pro jednoho člověka (!!!!)
+- stáhneme .xlsx soubor a spustíme skript:
+
+    texlua xlsx_to_tex.lua ~/Stažené/loanList.xlsx "Příjmení, Jméno"
+
+Tím vytvoříme TeXový soubor ve stejném formátu, který jsme v Alephu dostali pro
+všechny aktivní výpůjčky všech lidí. Další postup je stejný, jako pro TeXový soubor
+generovaný starým způsobem:
+
+- čárové kódy vytiskneme pomocí
+
+    ./makeck  cilovy_adresar/jmeno_cloveka_id.tex
+
+- seznamy k podpisu 
+
+    ./seznamy cilovy_adresar/jmeno_cloveka_id.tex
+
+
 
 # Staré info pro Aleph
 
@@ -16,14 +37,3 @@ Ze záznamu čtenáře vyexportujeme .xls soubor se všemi údaji a zkopírujeme
 - TeXové soubory vytvoříme pomocí
 
     texlua make_tex.lua soubor.tsv cilovy_adresar
-
-- čárové kódy vytiskneme pomocí
-
-    ./makeck  cilovy_adresar/jmeno_cloveka_id.tex
-
-- seznamy k podpisu 
-
-    ./seznamy cilovy_adresar/jmeno_cloveka_id.tex
-
-
-
