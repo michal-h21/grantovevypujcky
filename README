@@ -13,7 +13,10 @@ Ze záznamu čtenáře vyexportujeme .xls soubor se všemi údaji a zkopírujeme
     texlua xlsx_to_tex.lua ~/Stažené/loanList.xlsx "Příjmení, Jméno"
 
 Tím vytvoříme TeXový soubor ve stejném formátu, který jsme v Alephu dostali pro
-všechny aktivní výpůjčky všech lidí. Další postup je stejný, jako pro TeXový soubor
+všechny aktivní výpůjčky všech lidí. Jeho jméno je ve formátu
+"out/prijmeni_jmeno_111.tex".
+
+Další postup je stejný, jako pro TeXový soubor
 generovaný starým způsobem:
 
 - čárové kódy vytiskneme pomocí
